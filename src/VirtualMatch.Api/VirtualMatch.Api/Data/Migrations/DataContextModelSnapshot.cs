@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using VirtualMatch.Api.Database;
+using VirtualMatch.Api.Data;
 
 namespace VirtualMatch.Api.Data.Migrations
 {

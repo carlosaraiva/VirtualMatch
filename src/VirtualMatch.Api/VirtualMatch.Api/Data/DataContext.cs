@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using VirtualMatch.Entities;
 
-namespace VirtualMatch.Api.Database
+namespace VirtualMatch.Api.Data
 {
     public class DataContext : DbContext
     {

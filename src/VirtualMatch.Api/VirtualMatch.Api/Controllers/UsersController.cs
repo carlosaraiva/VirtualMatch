@@ -1,11 +1,17 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using VirtualMatch.Api.Database;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using VirtualMatch.Api.Data;
 using VirtualMatch.Entities;
 
-namespace API.Controllers
+namespace VirtualMatch.Api.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class UsersController : ControllerBase
     {
         private readonly DataContext _dataContext;
@@ -16,21 +22,20 @@ namespace API.Controllers
         }
 
 
-        [HttpGet]
-        public ActionResult<IEnumerable<User>> GetUsers()
+        [HttpGet()]
+        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
-            var users = _dataContext.Users.ToList();
+            var users = await _dataContext.Users.ToListAsync();
 
             return users;
         }
 
         [HttpGet("{id}")]
-        public ActionResult<User> GetUser(int id)
+        public async Task<ActionResult<User>> GetUser(int id)
         {
-            var user = _dataContext.Users.Find(id);
+            var user = await _dataContext.Users.FindAsync(id);
 
             return user;
         }
-
     }
 }
