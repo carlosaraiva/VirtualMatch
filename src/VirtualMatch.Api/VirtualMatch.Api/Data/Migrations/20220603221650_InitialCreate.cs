@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace VirtualMatch.Data.Migrations
+namespace VirtualMatch.Api.Data.Migrations
 {
     public partial class InitialCreate : Migration
     {
