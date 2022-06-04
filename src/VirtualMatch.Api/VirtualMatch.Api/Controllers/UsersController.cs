@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -21,7 +22,7 @@ namespace VirtualMatch.Api.Controllers
             this._dataContext = dataContext;
         }
 
-
+        [AllowAnonymous]
         [HttpGet()]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
@@ -30,6 +31,7 @@ namespace VirtualMatch.Api.Controllers
             return users;
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {

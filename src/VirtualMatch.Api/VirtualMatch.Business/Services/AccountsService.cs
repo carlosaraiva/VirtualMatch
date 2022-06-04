@@ -12,10 +12,12 @@ namespace VirtualMatch.Business.Services
     public class AccountsService
     {
         private UserRepository _userRepository { get; set; }
+        private TokenService _tokenService { get; set; }
 
-        public AccountsService(UserRepository userRepository)
+        public AccountsService(UserRepository userRepository, TokenService tokenService)
         {
             this._userRepository = userRepository;
+            this._tokenService = tokenService;
         }
 
         public async Task<AccountsPostResponse> Register(AccountsPostRequest request)
@@ -61,7 +63,8 @@ namespace VirtualMatch.Business.Services
                 return new LoginPostResponse
                 {
                     Id = user.Id,
-                    UserName = user.UserName
+                    UserName = user.UserName,
+                    Token = this._tokenService.Create(user)
                 };
             }
 

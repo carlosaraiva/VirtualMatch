@@ -14,6 +14,7 @@ namespace VirtualMatch.Business
         {
 
             services.AddScoped<AccountsService>();
+            services.AddScoped<TokenService>();
         }
     }
 }
