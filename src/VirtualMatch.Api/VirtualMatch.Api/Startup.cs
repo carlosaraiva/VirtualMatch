@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using VirtualMatch.Api.Data;
+using VirtualMatch.Data;
 
 namespace VirtualMatch.Api
 {
@@ -21,10 +21,11 @@ namespace VirtualMatch.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DataContext>(options =>
+            /*services.AddDbContext<DataContext>(options =>
             {
                 options.UseSqlite(_config.GetConnectionString("DefaultConnection"));
-            });
+            });*/
+            ServiceInjector.SetDataContext(services, _config.GetConnectionString("DefaultConnection"));
 
 
             services.AddControllers();

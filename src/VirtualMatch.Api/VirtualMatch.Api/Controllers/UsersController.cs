@@ -5,8 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using VirtualMatch.Api.Data;
-using VirtualMatch.Entities;
+using VirtualMatch.Data;
+using VirtualMatch.Entities.Database;
 
 namespace VirtualMatch.Api.Controllers
 {
