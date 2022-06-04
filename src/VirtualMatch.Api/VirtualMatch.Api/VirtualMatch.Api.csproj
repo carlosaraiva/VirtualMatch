@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\VirtualMatch.Business\VirtualMatch.Business.csproj" />
     <ProjectReference Include="..\VirtualMatch.Data\VirtualMatch.Data.csproj" />
     <ProjectReference Include="..\VirtualMatch.Entities\VirtualMatch.Entities.csproj" />
   </ItemGroup>

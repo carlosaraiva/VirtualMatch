@@ -3,10 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Authentication;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Unicode;
 using System.Threading.Tasks;
+using VirtualMatch.Business.Services;
 using VirtualMatch.Data;
 using VirtualMatch.Data.Repositories;
 using VirtualMatch.Entities;
@@ -19,31 +21,47 @@ namespace VirtualMatch.Api.Controllers
     [ApiController]
     public class AccountsController : ControllerBase
     {
-        private UserRepository _userRepository { get; set; }
+        private AccountsService _accountService { get; set; }
 
-        public AccountsController(UserRepository userRepository)
+        public AccountsController(AccountsService accountsService)
         {
-            this._userRepository = userRepository;
+            this._accountService = accountsService;
         }
 
         [HttpPost]
-        public async Task<ActionResult<User>> Post([FromBody]AccountsPostRequest request)
+        public async Task<ActionResult<AccountsPostResponse>> Post([FromBody]AccountsPostRequest request)
         {
-            using (var crypto = new HMACSHA512())
+            try
             {
-                var user = new User
+                using (var crypto = new HMACSHA512())
                 {
-                    UserName = request.Username,
-                    Password = crypto.ComputeHash(Encoding.UTF8.GetBytes(request.Password)),
-                    Salt = crypto.Key
-                };
+                    var response = await this._accountService.Register(request);
 
-                await _userRepository.Insert(user);
-
-                return user;
+                    return response;
+                }
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
             }
         }
 
-        
+        [HttpPost("login")]
+        public async Task<ActionResult<LoginPostResponse>> PostLogin([FromBody] LoginPostRequest request)
+        {
+            try
+            {
+                var response = await this._accountService.Login(request);
+                return Ok(response);
+            }
+            catch(AuthenticationException e)
+            {
+                return Unauthorized(e.Message);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
     }
 }

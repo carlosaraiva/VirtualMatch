@@ -5,7 +5,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using VirtualMatch.Data;
 
 namespace VirtualMatch.Api
 {
@@ -25,8 +24,8 @@ namespace VirtualMatch.Api
             {
                 options.UseSqlite(_config.GetConnectionString("DefaultConnection"));
             });*/
-            ServiceInjector.SetDataContext(services, _config.GetConnectionString("DefaultConnection"));
-
+            Data.ServiceInjector.SetDataInjection(services, _config.GetConnectionString("DefaultConnection"));
+            Business.ServiceInjector.SetBusinessInjection(services);
 
             services.AddControllers();
             services.AddCors();
