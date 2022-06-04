@@ -28,6 +28,7 @@ namespace VirtualMatch.Api
 
 
             services.AddControllers();
+            services.AddCors();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "VirtualMatch.Api", Version = "v1" });
@@ -47,6 +48,8 @@ namespace VirtualMatch.Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("*"));
 
             app.UseAuthorization();
 
