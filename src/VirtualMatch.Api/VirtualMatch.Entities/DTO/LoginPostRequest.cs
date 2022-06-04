@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace VirtualMatch.Entities.DTO
 {
-    public class AccountsPostRequest
+    public class LoginPostRequest
     {
         [Required]
         public string Username { get; set; }

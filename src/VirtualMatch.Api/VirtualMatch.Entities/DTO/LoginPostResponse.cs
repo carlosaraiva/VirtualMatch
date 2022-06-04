@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VirtualMatch.Entities.DTO
 {
-    public class AccountsPostResponse
+    public class LoginPostResponse
     {
         public int Id { get; set; }
 
