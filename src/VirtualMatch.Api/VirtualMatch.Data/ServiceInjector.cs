@@ -12,7 +12,7 @@ namespace VirtualMatch.Data
 {
     public static class ServiceInjector
     {
-        public static void SetDataContext(IServiceCollection services, string connection)
+        public static void SetDataInjection(IServiceCollection services, string connection)
         {
             services.AddDbContext<DataContext>(options =>
             {

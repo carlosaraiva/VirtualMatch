@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,16 @@ namespace VirtualMatch.Data.Repositories
         {
             await this._dataContext.Users.AddAsync(user);
             await this._dataContext.SaveChangesAsync();
+        }
+
+        public async Task<bool> CheckUserExistsBy(string username)
+        {
+            return await this._dataContext.Users.AnyAsync(user => user.UserName.ToLower() == username.ToLower());
+        }
+
+        public async Task<User> GetUserBy(string username)
+        {
+            return await this._dataContext.Users.FirstOrDefaultAsync(user => user.UserName.ToLower() == username.ToLower());
         }
 
 
