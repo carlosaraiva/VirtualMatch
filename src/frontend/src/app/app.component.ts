@@ -13,10 +13,9 @@ export class AppComponent implements OnInit {
   title = 'Virtual Match';
   users: any;
 
-  constructor(private http: HttpClient, private accountService: AccountService) {}
+  constructor(private accountService: AccountService) {}
   
   ngOnInit(): void {
-    this.getUsers();
     this.setLoggedUser();
   }
 
@@ -24,15 +23,4 @@ export class AppComponent implements OnInit {
     const user: User = JSON.parse(localStorage.getItem(this.accountService.USER_STORAGE_NAME));
     this.accountService.setLoggedUser(user);
   }
-
-  getUsers() {
-    this.http.get("https://localhost:44307/api/Users").subscribe(response => {
-      this.users = response;
-      console.log(this.users);
-    },
-    error=> {
-      console.log(error);
-    });
-  }
-
 }

@@ -32,6 +32,19 @@ export class AccountService {
     );
   }
 
+  register(model: any) {
+    return this.http.post(this.apiUrl + 'accounts', model).pipe(
+      map((user: User) => {
+        if(user) {
+          localStorage.setItem('user', JSON.stringify(user));
+          this.loggedUser.next(user);
+        }
+
+        return user;
+      })
+    );
+  }
+
   logout() {
     localStorage.removeItem(this.USER_STORAGE_NAME);
     this.loggedUser.next(null);
