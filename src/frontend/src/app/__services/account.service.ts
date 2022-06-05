@@ -1,27 +1,43 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Login } from '../__models/Login';
+import { User } from '../__models/User';
+import { map } from 'rxjs/operators';
+import { ReplaySubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
 
-  apiUrl = 'https://localhost:44307/api/'
-  logged: Boolean;
+  BUFFER_SIZE: number = 1;
+  USER_STORAGE_NAME: string = 'logged_user';
+
+  apiUrl = 'https://localhost:44307/api/';
+  private loggedUser = new ReplaySubject<User>(this.BUFFER_SIZE);
+  loggedUser$ = this.loggedUser.asObservable();
 
   constructor(private http: HttpClient) { }
 
   login(model: Login) {
-    return this.http.post(this.apiUrl + 'accounts/login', model).subscribe(
-      response => {
-        console.log(response);
-        this.logged = true;
-      },
-      error => {
-        console.log(error);
-        this.logged = false;
-      }
+    return this.http.post(this.apiUrl + 'accounts/login', model).pipe(
+      map((response: User) => {
+        const user = response;
+
+        if(user) {
+          localStorage.setItem(this.USER_STORAGE_NAME, JSON.stringify(user));
+          this.loggedUser.next(user);
+        }
+      })
     );
+  }
+
+  logout() {
+    localStorage.removeItem(this.USER_STORAGE_NAME);
+    this.loggedUser.next(null);
+  }
+
+  setLoggedUser(user: User) {
+    this.loggedUser.next(null);
   }
 }
