@@ -31,37 +31,19 @@ namespace VirtualMatch.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<AccountsPostResponse>> Post([FromBody]AccountsPostRequest request)
         {
-            try
+            using (var crypto = new HMACSHA512())
             {
-                using (var crypto = new HMACSHA512())
-                {
-                    var response = await this._accountService.Register(request);
+                var response = await this._accountService.Register(request);
 
-                    return response;
-                }
-            }
-            catch(Exception e)
-            {
-                return BadRequest(e.Message);
+                return response;
             }
         }
 
         [HttpPost("login")]
         public async Task<ActionResult<LoginPostResponse>> PostLogin([FromBody] LoginPostRequest request)
         {
-            try
-            {
-                var response = await this._accountService.Login(request);
-                return Ok(response);
-            }
-            catch(AuthenticationException e)
-            {
-                return Unauthorized(e.Message);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
+            var response = await this._accountService.Login(request);
+            return Ok(response);
         }
     }
 }

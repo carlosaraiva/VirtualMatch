@@ -21,8 +21,4 @@
     <ProjectReference Include="..\VirtualMatch.Entities\VirtualMatch.Entities.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Data\" />
-  </ItemGroup>
-
 </Project>
