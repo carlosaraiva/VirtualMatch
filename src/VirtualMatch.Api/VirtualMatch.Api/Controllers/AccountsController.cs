@@ -35,6 +35,9 @@ namespace VirtualMatch.Api.Controllers
             {
                 var response = await this._accountService.Register(request);
 
+                if (response == null)
+                    return BadRequest("User already exists");
+
                 return response;
             }
         }
@@ -43,6 +46,10 @@ namespace VirtualMatch.Api.Controllers
         public async Task<ActionResult<LoginPostResponse>> PostLogin([FromBody] LoginPostRequest request)
         {
             var response = await this._accountService.Login(request);
+
+            if (response == null)
+                return Unauthorized("Unauthorized");
+
             return Ok(response);
         }
     }

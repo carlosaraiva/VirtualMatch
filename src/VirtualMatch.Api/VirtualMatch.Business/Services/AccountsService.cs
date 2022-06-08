@@ -23,7 +23,7 @@ namespace VirtualMatch.Business.Services
         public async Task<AccountsPostResponse> Register(AccountsPostRequest request)
         {
             if (await this._userRepository.CheckUserExistsBy(request.Username))
-                throw new ArgumentException("Username already exists.");
+                return null;
 
             using (var crypto = new HMACSHA512())
             {
@@ -48,7 +48,7 @@ namespace VirtualMatch.Business.Services
             var user = await _userRepository.GetUserBy(request.Username);
 
             if (user is null)
-                throw new AuthenticationException("Invalid user or password.");
+                return null;
 
             using (var crypto = new HMACSHA512(user.Salt))
             {
@@ -57,7 +57,7 @@ namespace VirtualMatch.Business.Services
                 for(int i = 0; i < user.Password.Length; ++i)
                 {
                     if (computedPassword[i] != user.Password[i])
-                        throw new AuthenticationException("Invalid user or password.");
+                        return null;
                 }
 
                 return new LoginPostResponse
