@@ -11,6 +11,7 @@ using VirtualMatch.Entities.Database;
 
 namespace VirtualMatch.Api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -22,7 +23,6 @@ namespace VirtualMatch.Api.Controllers
             this._dataContext = dataContext;
         }
 
-        [AllowAnonymous]
         [HttpGet()]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
@@ -31,7 +31,7 @@ namespace VirtualMatch.Api.Controllers
             return users;
         }
 
-        [Authorize]
+        
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
