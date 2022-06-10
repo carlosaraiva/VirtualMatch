@@ -37,7 +37,7 @@ export class AccountService {
     return this.http.post(this.apiUrl + 'accounts', model).pipe(
       map((user: User) => {
         if(user) {
-          localStorage.setItem('user', JSON.stringify(user));
+          localStorage.setItem(this.USER_STORAGE_NAME, JSON.stringify(user));
           this.loggedUser.next(user);
         }
 
@@ -52,6 +52,6 @@ export class AccountService {
   }
 
   setLoggedUser(user: User) {
-    this.loggedUser.next(null);
+    this.loggedUser.next(user);
   }
 }

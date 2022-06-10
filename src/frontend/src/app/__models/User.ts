@@ -1,11 +1,11 @@
 export interface User {
     username: String;
-    jwtToken: String;
+    token: String;
 }
 
 export function newUser() : User {
     return {
         username: '',
-        jwtToken: ''
+        token: ''
     };
 }
