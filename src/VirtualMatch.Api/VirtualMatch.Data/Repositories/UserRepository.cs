@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,16 +9,19 @@ using System.Threading.Tasks;
 using VirtualMatch.Data;
 using VirtualMatch.Data.Interfaces;
 using VirtualMatch.Entities.Database;
+using VirtualMatch.Entities.DTO;
 
 namespace VirtualMatch.Data.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private DataContext _context { get; set; }
-
-        public UserRepository(DataContext dataContext)
+        private readonly DataContext _context;
+        private readonly IMapper _mapper;
+     
+        public UserRepository(DataContext context, IMapper mapper)
         {
-            this._context = dataContext;
+            _mapper = mapper;
+            _context = context;
         }
 
         public async Task<bool> CheckUserExistsBy(string username)
@@ -66,6 +71,20 @@ namespace VirtualMatch.Data.Repositories
             return await _context.SaveChangesAsync() > 0;
         }
 
+        public async Task<MemberDto> GetMemberAsync(string username)
+        {
+            return await _context.Users
+                .Where(x => x.UserName == username)
+                .ProjectTo<MemberDto>(_mapper.ConfigurationProvider)
+                .SingleOrDefaultAsync();
+        }
+
+        public async Task<IEnumerable<MemberDto>> GetMembersAsync()
+        {
+            return await _context.Users
+                .ProjectTo<MemberDto>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+        }
 
     }
 }

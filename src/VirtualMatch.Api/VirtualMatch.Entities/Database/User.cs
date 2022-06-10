@@ -35,16 +35,6 @@ namespace VirtualMatch.Entities.Database
 
         public ICollection<Photo> Photos { get; set; }
 
-        public int GetAge()
-        {
-            var today = DateTime.Today;
-            var age = today.Year - DateOfBirth.Year;
-
-            if (DateOfBirth.Date > today.AddYears(-age)) 
-                age--;
-
-            return age;
-        }
 
     }
 }
