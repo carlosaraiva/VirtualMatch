@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VirtualMatch.Data;
+using VirtualMatch.Data.Interfaces;
 using VirtualMatch.Data.Repositories;
 
 namespace VirtualMatch.Data
@@ -19,7 +20,7 @@ namespace VirtualMatch.Data
                 options.UseSqlServer(connection);
             });
 
-            services.AddScoped<UserRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
         }
     }
 }

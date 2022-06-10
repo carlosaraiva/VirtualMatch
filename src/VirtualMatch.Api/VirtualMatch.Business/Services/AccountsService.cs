@@ -3,6 +3,7 @@ using System.Security.Authentication;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using VirtualMatch.Data.Interfaces;
 using VirtualMatch.Data.Repositories;
 using VirtualMatch.Entities.Database;
 using VirtualMatch.Entities.DTO;
@@ -11,10 +12,10 @@ namespace VirtualMatch.Business.Services
 {
     public class AccountsService
     {
-        private UserRepository _userRepository { get; set; }
+        private IUserRepository _userRepository { get; set; }
         private TokenService _tokenService { get; set; }
-
-        public AccountsService(UserRepository userRepository, TokenService tokenService)
+        
+        public AccountsService(IUserRepository userRepository, TokenService tokenService)
         {
             this._userRepository = userRepository;
             this._tokenService = tokenService;
@@ -45,7 +46,7 @@ namespace VirtualMatch.Business.Services
 
         public async Task<LoginPostResponse> Login(LoginPostRequest request)
         {
-            var user = await _userRepository.GetUserBy(request.Username);
+            var user = await _userRepository.GetUserByUsernameAsync(request.Username);
 
             if (user is null)
                 return null;

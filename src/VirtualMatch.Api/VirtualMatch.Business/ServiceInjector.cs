@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VirtualMatch.Business.Interfaces;
 using VirtualMatch.Business.Services;
 
 namespace VirtualMatch.Business
@@ -15,6 +16,7 @@ namespace VirtualMatch.Business
 
             services.AddScoped<AccountsService>();
             services.AddScoped<TokenService>();
+            services.AddScoped<IUserService, UserService>();
         }
     }
 }

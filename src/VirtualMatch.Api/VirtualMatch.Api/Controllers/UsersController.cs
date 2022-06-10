@@ -6,7 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using VirtualMatch.Business.Interfaces;
+using VirtualMatch.Business.Services;
 using VirtualMatch.Data;
+using VirtualMatch.Data.Interfaces;
 using VirtualMatch.Entities.Database;
 
 namespace VirtualMatch.Api.Controllers
@@ -16,28 +19,28 @@ namespace VirtualMatch.Api.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly DataContext _dataContext;
+        private readonly IUserService _userService;
 
-        public UsersController(DataContext dataContext)
+        public UsersController(IUserService userService)
         {
-            this._dataContext = dataContext;
+            this._userService = userService;
         }
 
         [HttpGet()]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
-            var users = await _dataContext.Users.ToListAsync();
+            var users = await _userService.GetUsers();
 
-            return users;
+            return Ok(users);
         }
 
         
-        [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        [HttpGet("{username}")]
+        public async Task<ActionResult<User>> GetUser(string username)
         {
-            var user = await _dataContext.Users.FindAsync(id);
+            var user = await _userService.GetUsersByUsernameAsync(username);
 
-            return user;
+            return Ok(user);
         }
     }
 }
