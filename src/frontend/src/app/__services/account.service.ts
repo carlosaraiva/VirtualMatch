@@ -4,6 +4,7 @@ import { Login } from '../__models/Login';
 import { User } from '../__models/User';
 import { map } from 'rxjs/operators';
 import { ReplaySubject } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class AccountService {
   BUFFER_SIZE: number = 1;
   USER_STORAGE_NAME: string = 'logged_user';
 
-  apiUrl = 'https://localhost:44307/api/';
+  apiUrl = environment.apiUrl;
   private loggedUser = new ReplaySubject<User>(this.BUFFER_SIZE);
   loggedUser$ = this.loggedUser.asObservable();
 
