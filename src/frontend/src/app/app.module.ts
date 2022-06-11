@@ -22,6 +22,7 @@ import { MemberCardComponent } from './member-card/member-card.component';
 import { JwtInterceptor } from './__interceptors/jwt.interceptor';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+import { MemberEditComponent } from './member-edit/member-edit.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { NgxGalleryModule } from '@kolkov/ngx-gallery';
     MessagesComponent,
     NotFoundComponent,
     ServerErrorComponent,
-    MemberCardComponent
+    MemberCardComponent,
+    MemberEditComponent
   ],
   imports: [
     BrowserModule,

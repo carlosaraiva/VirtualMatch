@@ -39,7 +39,7 @@ namespace VirtualMatch.Business.Services
 
                 return new AccountsPostResponse { 
                     Id = user.Id,
-                    UserName = user.UserName
+                    Username = user.UserName
                 };
             }
         }
@@ -64,7 +64,7 @@ namespace VirtualMatch.Business.Services
                 return new LoginPostResponse
                 {
                     Id = user.Id,
-                    UserName = user.UserName,
+                    Username = user.UserName,
                     Token = this._tokenService.Create(user)
                 };
             }
