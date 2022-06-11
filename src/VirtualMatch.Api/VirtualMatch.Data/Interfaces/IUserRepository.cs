@@ -10,7 +10,7 @@ namespace VirtualMatch.Data.Interfaces
         Task<bool> CheckUserExistsBy(string username);
         Task Insert(User user);
         void Update(User user);
-        Task<bool> SaveAllAsync(User user);
+        Task<bool> SaveAllAsync();
         Task<IEnumerable<User>> GetUsersAsync();
         Task<User> GetUserByIdAsync(int id);
         Task<User> GetUserByUsernameAsync(string username);

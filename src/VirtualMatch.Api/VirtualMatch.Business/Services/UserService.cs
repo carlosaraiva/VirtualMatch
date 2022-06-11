@@ -43,5 +43,15 @@ namespace VirtualMatch.Business.Services
         {
             return await this._userRepository.GetMembersAsync();
         }
+
+        public async Task<bool> UpdateMember(MemberUpdateDto memberUpdateDto)
+        {
+            var user = await this._userRepository.GetUserByUsernameAsync(memberUpdateDto.Username);
+
+            _mapper.Map(memberUpdateDto, user);
+
+            this._userRepository.Update(user);
+            return await this._userRepository.SaveAllAsync();
+        }
     }
 }

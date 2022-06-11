@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using VirtualMatch.Business.Interfaces;
 using VirtualMatch.Business.Services;
@@ -42,6 +43,18 @@ namespace VirtualMatch.Api.Controllers
             var user = await _userService.GetMemberAsync(username);
 
             return Ok(user);
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> UpdateUser(MemberUpdateDto memberUpdateDto)
+        {
+            var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            memberUpdateDto.Username = username;
+
+            if (await this._userService.UpdateMember(memberUpdateDto))
+                return NoContent();
+
+            return BadRequest("Failed to update user");
         }
     }
 }

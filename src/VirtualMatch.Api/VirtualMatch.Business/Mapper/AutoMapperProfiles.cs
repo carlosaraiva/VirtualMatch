@@ -18,7 +18,10 @@ namespace VirtualMatch.Business.Mapper
             CreateMap<User, MemberDto>()
                 .ForMember(dest => dest.PhotoUrl, opt => opt.MapFrom(src => src.Photos.FirstOrDefault(x => x.IsMain).Url))
                 .ForMember(dest => dest.Age, opt => opt.MapFrom(src => src.DateOfBirth.CalculateAge()));
+            
             CreateMap<Photo, PhotoDto>().ReverseMap();
+
+            CreateMap<MemberUpdateDto, User>().ReverseMap();
         }
     }
 }

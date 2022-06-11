@@ -11,5 +11,6 @@ namespace VirtualMatch.Business.Interfaces
         Task<MemberDto> GetUsersByUsernameAsync(string username);
         Task<MemberDto> GetMemberAsync(string username);
         Task<IEnumerable<MemberDto>> GetMembersAsync();
+        Task<bool> UpdateMember(MemberUpdateDto memberUpdateDto);
     }
 }
