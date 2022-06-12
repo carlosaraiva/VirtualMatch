@@ -22,10 +22,12 @@ namespace VirtualMatch.Api.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly IPhotoService _photoService;
 
-        public UsersController(IUserService userService)
+        public UsersController(IUserService userService, IPhotoService photoService)
         {
             this._userService = userService;
+            this._photoService = photoService;
         }
 
         [HttpGet()]
@@ -37,7 +39,7 @@ namespace VirtualMatch.Api.Controllers
         }
 
         
-        [HttpGet("{username}")]
+        [HttpGet("{username}", Name = "GetUser")]
         public async Task<ActionResult<MemberDto>> GetUser(string username)
         {
             var user = await _userService.GetMemberAsync(username);
@@ -55,6 +57,19 @@ namespace VirtualMatch.Api.Controllers
                 return NoContent();
 
             return BadRequest("Failed to update user");
+        }
+
+        [HttpPost("add-photo")]
+        public async Task<ActionResult<PhotoDto>> AddPhoto(IFormFile file)
+        {
+            var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var photo = await this._photoService.AddPhotoAsync(file, username);
+
+            if(photo == null)
+                return BadRequest("Something went wrong while adding photos");
+
+            return CreatedAtRoute("GetUser", new { username = username }, photo);
         }
     }
 }

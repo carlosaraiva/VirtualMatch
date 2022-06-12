@@ -86,5 +86,14 @@ namespace VirtualMatch.Data.Repositories
                 .ToListAsync();
         }
 
+        public async Task AddPhotoAsync(Photo photo, string username)
+        {
+            var user = await this._context.Users.Include("Photos").FirstOrDefaultAsync(user => user.UserName == username);
+
+            photo.IsMain = user.Photos?.Count == 0;
+
+            user.Photos.Add(photo);
+        }
+
     }
 }

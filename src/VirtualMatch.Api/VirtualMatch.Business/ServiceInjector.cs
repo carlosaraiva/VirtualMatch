@@ -18,6 +18,7 @@ namespace VirtualMatch.Business
             services.AddScoped<AccountsService>();
             services.AddScoped<TokenService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IPhotoService, PhotoService>();
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
         }
     }

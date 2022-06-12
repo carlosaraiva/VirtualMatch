@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using VirtualMatch.Api.Middleware;
+using VirtualMatch.Entities.Helpers;
 
 namespace VirtualMatch.Api
 {
@@ -30,6 +31,7 @@ namespace VirtualMatch.Api
             });*/
             Data.ServiceInjector.SetDataInjection(services, _config.GetConnectionString("DefaultConnection"));
             Business.ServiceInjector.SetBusinessInjection(services);
+            services.Configure<CloudinarySettings>(_config.GetSection("CloudinarySettings"));
 
             services.AddControllers();
             services.AddCors();
