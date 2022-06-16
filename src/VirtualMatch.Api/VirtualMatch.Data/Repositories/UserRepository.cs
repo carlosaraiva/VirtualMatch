@@ -99,8 +99,16 @@ namespace VirtualMatch.Data.Repositories
         {
             var user = await this.GetUserByUsernameAsync(username);
 
-            user.Photos.FirstOrDefault(user => user.IsMain).IsMain = false;
-            user.Photos.FirstOrDefault(user => user.Id == photoId).IsMain = true;
+            user.Photos.FirstOrDefault(photo => photo.IsMain).IsMain = false;
+            user.Photos.FirstOrDefault(photo => photo.Id == photoId).IsMain = true;
+
+            return await this.SaveAllAsync();
+        }
+
+        public async Task<bool> DeletePhoto(string username, int photoId)
+        {
+            var user = await this.GetUserByUsernameAsync(username);
+            user.Photos.Remove(user.Photos.FirstOrDefault(photo => photo.Id == photoId));
 
             return await this.SaveAllAsync();
         }

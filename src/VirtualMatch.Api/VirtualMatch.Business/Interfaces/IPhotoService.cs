@@ -12,7 +12,7 @@ namespace VirtualMatch.Business.Interfaces
     public interface IPhotoService
     {
         Task<PhotoDto> AddPhotoAsync(IFormFile file, string username);
-        Task<DeletionResult> DeletePhotoAsync(string publicId);
+        Task<bool> DeletePhotoAsync(string username, int photoId);
 
         Task<bool> SetMainPhoto(string username, int photoId);
     }

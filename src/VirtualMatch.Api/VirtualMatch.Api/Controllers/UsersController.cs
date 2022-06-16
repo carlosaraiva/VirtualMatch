@@ -82,5 +82,15 @@ namespace VirtualMatch.Api.Controllers
             else
                 return BadRequest("Some problem ocurred while setting the main photo.");
         }
+
+        [HttpDelete("photo/{photoId}")]
+        public async Task<ActionResult> DeletePhoto(int photoId)
+        {
+            var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (await this._photoService.DeletePhotoAsync(username, photoId))
+                return Ok();
+
+            return BadRequest("Photo could not be deleted");
+        }
     }
 }

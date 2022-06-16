@@ -73,13 +73,20 @@ namespace VirtualMatch.Business.Services
             
         }
 
-        public async Task<DeletionResult> DeletePhotoAsync(string publicId)
+        public async Task<bool> DeletePhotoAsync(string username, int photoId)
         {
-            var deleteParams = new DeletionParams(publicId);
+            var user = await _userRepository.GetUserByUsernameAsync(username);
+            var photo = user.Photos.FirstOrDefault(photo => photo.Id == photoId);
 
+            if (photo.IsMain)
+                return false;
+
+            var deleteParams = new DeletionParams(photo.PublicId); 
             var result = await _cloudinary.DestroyAsync(deleteParams);
+            if (result.Error != null)
+                return false;
 
-            return result;
+            return await _userRepository.DeletePhoto(username, photoId);
         }
 
         public async Task<bool> SetMainPhoto(string username, int photoId)
