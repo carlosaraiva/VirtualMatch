@@ -95,5 +95,15 @@ namespace VirtualMatch.Data.Repositories
             user.Photos.Add(photo);
         }
 
+        public async Task<bool> SetMainPhoto(string username, int photoId)
+        {
+            var user = await this.GetUserByUsernameAsync(username);
+
+            user.Photos.FirstOrDefault(user => user.IsMain).IsMain = false;
+            user.Photos.FirstOrDefault(user => user.Id == photoId).IsMain = true;
+
+            return await this.SaveAllAsync();
+        }
+
     }
 }

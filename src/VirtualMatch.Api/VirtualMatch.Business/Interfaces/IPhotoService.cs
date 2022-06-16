@@ -14,5 +14,6 @@ namespace VirtualMatch.Business.Interfaces
         Task<PhotoDto> AddPhotoAsync(IFormFile file, string username);
         Task<DeletionResult> DeletePhotoAsync(string publicId);
 
+        Task<bool> SetMainPhoto(string username, int photoId);
     }
 }

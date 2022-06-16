@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Security.Authentication;
 using System.Security.Cryptography;
 using System.Text;
@@ -65,7 +66,8 @@ namespace VirtualMatch.Business.Services
                 {
                     Id = user.Id,
                     Username = user.UserName,
-                    Token = this._tokenService.Create(user)
+                    Token = this._tokenService.Create(user),
+                    PhotoUrl = user.Photos.FirstOrDefault(user => user.IsMain)?.Url
                 };
             }
 

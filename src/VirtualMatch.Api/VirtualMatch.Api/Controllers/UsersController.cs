@@ -71,5 +71,16 @@ namespace VirtualMatch.Api.Controllers
 
             return CreatedAtRoute("GetUser", new { username = username }, photo);
         }
+
+        [HttpPut("set-main-photo/{photoId}")]
+        public async Task<ActionResult> SetMainPhoto([FromRoute]int photoId)
+        {
+            var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (await _photoService.SetMainPhoto(username, photoId))
+                return NoContent();
+            else
+                return BadRequest("Some problem ocurred while setting the main photo.");
+        }
     }
 }

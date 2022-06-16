@@ -17,5 +17,6 @@ namespace VirtualMatch.Data.Interfaces
         Task<MemberDto> GetMemberAsync(string username);
         Task<IEnumerable<MemberDto>> GetMembersAsync();
         Task AddPhotoAsync(Photo photo, string username);
+        Task<bool> SetMainPhoto(string username, int photoId);
     }
 }

@@ -81,5 +81,10 @@ namespace VirtualMatch.Business.Services
 
             return result;
         }
+
+        public async Task<bool> SetMainPhoto(string username, int photoId)
+        {
+            return await this._userRepository.SetMainPhoto(username, photoId);
+        }
     }
 }
