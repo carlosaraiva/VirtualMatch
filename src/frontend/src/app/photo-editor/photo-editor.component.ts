@@ -32,7 +32,7 @@ export class PhotoEditorComponent implements OnInit {
     this.hasBaseDropzoneOver = e;
   }
 
-  /*setMainPhoto(photo: Photo) {
+  setMainPhoto(photo: Photo) {
     this.memberService.setMainPhoto(photo.id).subscribe(() => {
       this.user.photoUrl = photo.url;
       this.accountService.setLoggedUser(this.user);
@@ -42,7 +42,7 @@ export class PhotoEditorComponent implements OnInit {
         if (p.id === photo.id) p.isMain = true;
       })
     })
-  } */
+  }
 
   /*deletePhoto(photoId: number) {
     this.memberService.deletePhoto(photoId).subscribe(() => {
