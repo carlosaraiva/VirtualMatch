@@ -1,13 +1,13 @@
 export interface Login {
     username: String;
-    password: String;
+    pass: String;
     photoUrl: String;
 }
 
 export function newLogin() : Login {
     return {
         username: '',
-        password: '',
+        pass: '',
         photoUrl: ''
     };
 }

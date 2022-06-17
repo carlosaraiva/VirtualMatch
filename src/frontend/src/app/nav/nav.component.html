@@ -15,7 +15,7 @@
     </ul>
 
     <div class="dropdown" *ngIf="(accountService.loggedUser$ | async) as loggedUser" dropdown>
-        <img src="{{loggedUser.photoUrl}}" alt="{{loggedUser.username}}" />
+        <img src="{{loggedUser.photoUrl || './assets/user.png'}}" alt="{{loggedUser.username}}" />
         <a class="dropdown-toggle text-light ml-2" dropdownToggle>Hello {{loggedUser.username | titlecase}}!</a>
         <div class="dropdown-menu mt-3" *dropdownMenu>
             <a routerLink="/members/edit" class="dropdown-item">Edit Profile</a>
@@ -26,7 +26,7 @@
 
     <form *ngIf="!(accountService.loggedUser$ | async)" #loginForm="ngForm" class="form-inline mt-2 mt-md-0" (ngSubmit)="login()" autocomplete="off">
         <input name="username" [(ngModel)]="model.username" class="form-control mr-sm-2" type="text" placeholder="Username" aria-label="Search">
-        <input name="password" [(ngModel)]="model.password" class="form-control mr-sm-2" type="password" placeholder="Password" aria-label="Search">
+        <input name="password" [(ngModel)]="model.pass" class="form-control mr-sm-2" type="password" placeholder="Password" aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
     </form>
     </div>

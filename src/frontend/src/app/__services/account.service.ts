@@ -50,6 +50,7 @@ export class AccountService {
   }
 
   setLoggedUser(user: User) {
+    console.log(user);
     localStorage.setItem(this.USER_STORAGE_NAME, JSON.stringify(user));
     this.loggedUser.next(user);
   }

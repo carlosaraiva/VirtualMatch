@@ -29,6 +29,6 @@ namespace VirtualMatch.Entities.DTO
 
         [Required]
         [StringLength(12, MinimumLength = 8)]
-        public string Password { get; set; }
+        public string Pass { get; set; }
     }
 }

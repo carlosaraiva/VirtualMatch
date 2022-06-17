@@ -37,7 +37,7 @@ namespace VirtualMatch.Business.Services
             using (var crypto = new HMACSHA512())
             {
                 user.UserName = request.Username;
-                user.Password = crypto.ComputeHash(Encoding.UTF8.GetBytes(request.Password));
+                user.Password = crypto.ComputeHash(Encoding.UTF8.GetBytes(request.Pass));
                 user.Salt = crypto.Key;
 
                 await _userRepository.Insert(user);
@@ -45,6 +45,7 @@ namespace VirtualMatch.Business.Services
                 return new AccountsPostResponse {
                     Id = user.Id,
                     Username = user.UserName,
+                    Token = this._tokenService.Create(user),
                     KnownAs = user.KnownAs
                 };
             }
@@ -59,7 +60,7 @@ namespace VirtualMatch.Business.Services
 
             using (var crypto = new HMACSHA512(user.Salt))
             {
-                var computedPassword = crypto.ComputeHash(Encoding.UTF8.GetBytes(request.Password));
+                var computedPassword = crypto.ComputeHash(Encoding.UTF8.GetBytes(request.Pass));
 
                 for(int i = 0; i < user.Password.Length; ++i)
                 {
