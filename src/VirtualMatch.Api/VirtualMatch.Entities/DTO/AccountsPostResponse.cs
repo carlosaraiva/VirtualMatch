@@ -11,5 +11,6 @@ namespace VirtualMatch.Entities.DTO
         public int Id { get; set; }
 
         public string Username { get; set; }
+        public string KnownAs { get; set; }
     }
 }

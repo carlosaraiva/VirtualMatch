@@ -14,5 +14,6 @@ namespace VirtualMatch.Entities.DTO
         public string Token { get; set; }
 
         public string PhotoUrl { get; set; }
+        public string KnownAs { get; set; }
     }
 }

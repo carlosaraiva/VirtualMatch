@@ -22,6 +22,8 @@ namespace VirtualMatch.Business.Mapper
             CreateMap<Photo, PhotoDto>().ReverseMap();
 
             CreateMap<MemberUpdateDto, User>().ReverseMap();
+
+            CreateMap<AccountsPostRequest, User>().ReverseMap();
         }
     }
 }

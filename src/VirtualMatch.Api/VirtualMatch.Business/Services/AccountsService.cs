@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Linq;
 using System.Security.Authentication;
 using System.Security.Cryptography;
@@ -15,11 +16,15 @@ namespace VirtualMatch.Business.Services
     {
         private IUserRepository _userRepository { get; set; }
         private TokenService _tokenService { get; set; }
-        
-        public AccountsService(IUserRepository userRepository, TokenService tokenService)
+
+        private IMapper _mapper { get; set; }
+
+
+        public AccountsService(IUserRepository userRepository, TokenService tokenService, IMapper mapper)
         {
             this._userRepository = userRepository;
             this._tokenService = tokenService;
+            this._mapper = mapper;
         }
 
         public async Task<AccountsPostResponse> Register(AccountsPostRequest request)
@@ -27,20 +32,20 @@ namespace VirtualMatch.Business.Services
             if (await this._userRepository.CheckUserExistsBy(request.Username))
                 return null;
 
+            var user = _mapper.Map<User>(request);
+
             using (var crypto = new HMACSHA512())
             {
-                var user = new User
-                {
-                    UserName = request.Username,
-                    Password = crypto.ComputeHash(Encoding.UTF8.GetBytes(request.Password)),
-                    Salt = crypto.Key
-                };
+                user.UserName = request.Username;
+                user.Password = crypto.ComputeHash(Encoding.UTF8.GetBytes(request.Password));
+                user.Salt = crypto.Key;
 
                 await _userRepository.Insert(user);
 
-                return new AccountsPostResponse { 
+                return new AccountsPostResponse {
                     Id = user.Id,
-                    Username = user.UserName
+                    Username = user.UserName,
+                    KnownAs = user.KnownAs
                 };
             }
         }
@@ -67,7 +72,8 @@ namespace VirtualMatch.Business.Services
                     Id = user.Id,
                     Username = user.UserName,
                     Token = this._tokenService.Create(user),
-                    PhotoUrl = user.Photos.FirstOrDefault(user => user.IsMain)?.Url
+                    PhotoUrl = user.Photos.FirstOrDefault(user => user.IsMain)?.Url,
+                    KnownAs = user.KnownAs
                 };
             }
 
