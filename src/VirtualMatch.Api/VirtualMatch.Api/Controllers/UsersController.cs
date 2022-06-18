@@ -13,6 +13,8 @@ using VirtualMatch.Data;
 using VirtualMatch.Data.Interfaces;
 using VirtualMatch.Entities.Database;
 using VirtualMatch.Entities.DTO;
+using VirtualMatch.Shared.Extensions;
+using VirtualMatch.Shared.Helpers;
 
 namespace VirtualMatch.Api.Controllers
 {
@@ -31,9 +33,11 @@ namespace VirtualMatch.Api.Controllers
         }
 
         [HttpGet()]
-        public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers()
+        public async Task<ActionResult<PagedList<MemberDto>>> GetUsers([FromQuery]UserParams userParams)
         {
-            var users = await _userService.GetMembersAsync();
+            var users = await _userService.GetMembersAsync(userParams);
+
+            Response.AddPaginationHeader(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages);
 
             return Ok(users);
         }

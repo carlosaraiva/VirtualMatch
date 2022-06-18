@@ -17,6 +17,7 @@
   
   <ItemGroup>
     <ProjectReference Include="..\VirtualMatch.Entities\VirtualMatch.Entities.csproj" />
+    <ProjectReference Include="..\VirtualMatch.Shared\VirtualMatch.Shared.csproj" />
   </ItemGroup>
 
 </Project>

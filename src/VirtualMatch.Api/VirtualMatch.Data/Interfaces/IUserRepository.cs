@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using VirtualMatch.Entities.Database;
 using VirtualMatch.Entities.DTO;
+using VirtualMatch.Shared.Helpers;
 
 namespace VirtualMatch.Data.Interfaces
 {
@@ -15,7 +16,7 @@ namespace VirtualMatch.Data.Interfaces
         Task<User> GetUserByIdAsync(int id);
         Task<User> GetUserByUsernameAsync(string username);
         Task<MemberDto> GetMemberAsync(string username);
-        Task<IEnumerable<MemberDto>> GetMembersAsync();
+        Task<PagedList<MemberDto>> GetMembersAsync(UserParams userParams);
         Task AddPhotoAsync(Photo photo, string username);
         Task<bool> SetMainPhoto(string username, int photoId);
         Task<bool> DeletePhoto(string username, int photoId);

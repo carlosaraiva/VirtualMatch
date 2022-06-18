@@ -8,6 +8,7 @@ using VirtualMatch.Business.Interfaces;
 using VirtualMatch.Data.Interfaces;
 using VirtualMatch.Entities.Database;
 using VirtualMatch.Entities.DTO;
+using VirtualMatch.Shared.Helpers;
 
 namespace VirtualMatch.Business.Services
 {
@@ -39,9 +40,9 @@ namespace VirtualMatch.Business.Services
             return await this._userRepository.GetMemberAsync(username);
         }
 
-        public async Task<IEnumerable<MemberDto>> GetMembersAsync()
+        public async Task<PagedList<MemberDto>> GetMembersAsync(UserParams userParams)
         {
-            return await this._userRepository.GetMembersAsync();
+            return await this._userRepository.GetMembersAsync(userParams);
         }
 
         public async Task<bool> UpdateMember(MemberUpdateDto memberUpdateDto)

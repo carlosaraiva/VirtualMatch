@@ -10,6 +10,7 @@ using VirtualMatch.Data;
 using VirtualMatch.Data.Interfaces;
 using VirtualMatch.Entities.Database;
 using VirtualMatch.Entities.DTO;
+using VirtualMatch.Shared.Helpers;
 
 namespace VirtualMatch.Data.Repositories
 {
@@ -79,11 +80,13 @@ namespace VirtualMatch.Data.Repositories
                 .SingleOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<MemberDto>> GetMembersAsync()
+        public async Task<PagedList<MemberDto>> GetMembersAsync(UserParams userParams)
         {
-            return await _context.Users
+            var query = _context.Users
                 .ProjectTo<MemberDto>(_mapper.ConfigurationProvider)
-                .ToListAsync();
+                .AsNoTracking();
+
+            return await PagedList<MemberDto>.CreateAsync(query, userParams.PageNumber, userParams.PageSize);
         }
 
         public async Task AddPhotoAsync(Photo photo, string username)
