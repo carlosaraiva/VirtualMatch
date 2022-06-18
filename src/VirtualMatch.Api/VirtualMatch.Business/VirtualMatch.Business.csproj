@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\VirtualMatch.Data\VirtualMatch.Data.csproj" />
+    <ProjectReference Include="..\VirtualMatch.Shared\VirtualMatch.Shared.csproj" />
   </ItemGroup>
 
 </Project>

@@ -9,7 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using VirtualMatch.Api.Middleware;
-using VirtualMatch.Entities.Helpers;
+using VirtualMatch.Shared.Helpers;
 
 namespace VirtualMatch.Api
 {

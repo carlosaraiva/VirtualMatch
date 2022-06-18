@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirtualMatch.Api", "Virtual
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirtualMatch.Entities", "VirtualMatch.Entities\VirtualMatch.Entities.csproj", "{7E66E823-293D-48A7-8EA5-F567D0A33907}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualMatch.Data", "VirtualMatch.Data\VirtualMatch.Data.csproj", "{D445D0AC-FECD-4628-8611-810AB5D80B55}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirtualMatch.Data", "VirtualMatch.Data\VirtualMatch.Data.csproj", "{D445D0AC-FECD-4628-8611-810AB5D80B55}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualMatch.Business", "VirtualMatch.Business\VirtualMatch.Business.csproj", "{92143399-F10A-433B-ADEF-23A0351AE54A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirtualMatch.Business", "VirtualMatch.Business\VirtualMatch.Business.csproj", "{92143399-F10A-433B-ADEF-23A0351AE54A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualMatch.Shared", "VirtualMatch.Shared\VirtualMatch.Shared.csproj", "{D6423678-0665-4E07-9F13-12BCAD8B3369}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{92143399-F10A-433B-ADEF-23A0351AE54A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92143399-F10A-433B-ADEF-23A0351AE54A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92143399-F10A-433B-ADEF-23A0351AE54A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6423678-0665-4E07-9F13-12BCAD8B3369}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6423678-0665-4E07-9F13-12BCAD8B3369}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6423678-0665-4E07-9F13-12BCAD8B3369}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6423678-0665-4E07-9F13-12BCAD8B3369}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

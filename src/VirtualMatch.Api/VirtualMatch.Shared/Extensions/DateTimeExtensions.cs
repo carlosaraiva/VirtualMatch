@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VirtualMatch.Business.Extensions
+namespace VirtualMatch.Shared.Extensions
 {
     public static class DateTimeExtensions
     {

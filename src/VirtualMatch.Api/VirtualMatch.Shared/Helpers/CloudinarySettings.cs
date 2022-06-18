@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VirtualMatch.Entities.Helpers
+namespace VirtualMatch.Shared.Helpers
 {
     public class CloudinarySettings
     {

@@ -12,7 +12,7 @@ using VirtualMatch.Business.Interfaces;
 using VirtualMatch.Data.Interfaces;
 using VirtualMatch.Entities.Database;
 using VirtualMatch.Entities.DTO;
-using VirtualMatch.Entities.Helpers;
+using VirtualMatch.Shared.Helpers;
 
 namespace VirtualMatch.Business.Services
 {
