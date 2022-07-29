@@ -35,6 +35,7 @@ namespace VirtualMatch.Api.Controllers
         [HttpGet()]
         public async Task<ActionResult<PagedList<MemberDto>>> GetUsers([FromQuery]UserParams userParams)
         {
+            userParams.CurrentUsername = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var users = await _userService.GetMembersAsync(userParams);
 
             Response.AddPaginationHeader(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages);
