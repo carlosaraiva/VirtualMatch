@@ -6,6 +6,7 @@ import { of, pipe } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { AccountService } from './account.service';
 import { User } from '../__models/user';
+import { PaginatedResult } from '../__models/Pagination';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -22,6 +23,7 @@ export class MembersService {
   memberCache = new Map();
   user: User;
   USER_STORAGE_NAME: string = 'logged_user';
+  paginatedResult: PaginatedResult<Member[]> = new PaginatedResult<Member[]>();
 
   constructor(private http: HttpClient, private accountService: AccountService) {
     this.accountService.loggedUser$.pipe(take(1)).subscribe(user => {
@@ -29,8 +31,25 @@ export class MembersService {
     })
   }
 
-  getMembers() {
-    return this.http.get<Member[]>(this.baseUrl + 'users', httpOptions);
+  getMembers(page?: number, itemsPerPage?: number) {
+
+    let params = new HttpParams();
+
+    if(page !== null && itemsPerPage !== null) {
+      params = params.append('pageNumber', page.toString());
+      params = params.append('pageSize', itemsPerPage.toString());
+    }
+
+    return this.http.get<Member[]>(this.baseUrl + 'users', {observe: 'response', params}).pipe(
+      map(response => {
+        this.paginatedResult.result = response.body;
+        if(response.headers.get('Pagination') !== null) {
+          this.paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+        }
+
+        return this.paginatedResult;
+      })
+    );
   }
 
   getMember(username: String) {
