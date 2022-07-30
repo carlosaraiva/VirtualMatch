@@ -7,6 +7,7 @@ import { map, take } from 'rxjs/operators';
 import { AccountService } from './account.service';
 import { User } from '../__models/user';
 import { PaginatedResult } from '../__models/Pagination';
+import { UserParams } from '../__models/UserParams';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -31,23 +32,44 @@ export class MembersService {
     })
   }
 
-  getMembers(page?: number, itemsPerPage?: number) {
-
-    let params = new HttpParams();
-
-    if(page !== null && itemsPerPage !== null) {
-      params = params.append('pageNumber', page.toString());
-      params = params.append('pageSize', itemsPerPage.toString());
+  getMembers(userParams: UserParams) {
+    var response = this.memberCache.get(Object.values(userParams).join('-'));
+    if (response) {
+      return of(response);
     }
 
-    return this.http.get<Member[]>(this.baseUrl + 'users', {observe: 'response', params}).pipe(
-      map(response => {
-        this.paginatedResult.result = response.body;
-        if(response.headers.get('Pagination') !== null) {
-          this.paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
-        }
+    let params = this.getPaginationHeaders(userParams.pageNumber, userParams.pageSize);
 
-        return this.paginatedResult;
+    params = params.append('minAge', userParams.minAge.toString());
+    params = params.append('maxAge', userParams.maxAge.toString());
+    params = params.append('gender', userParams.gender);
+    params = params.append('orderBy', userParams.orderBy);
+
+    return this.getPaginatedResult<Member[]>(this.baseUrl + 'users', params, this.http)
+      .pipe(map(response => {
+        this.memberCache.set(Object.values(userParams).join('-'), response);
+        return response;
+      }))
+  }
+
+  getPaginationHeaders(pageNumber: number, pageSize: number) {
+    let params = new HttpParams();
+
+    params = params.append('pageNumber', pageNumber.toString());
+    params = params.append('pageSize', pageSize.toString());
+
+    return params;
+  }
+
+  getPaginatedResult<T>(url, params, http: HttpClient) {
+    const paginatedResult: PaginatedResult<T> = new PaginatedResult<T>();
+    return http.get<T>(url, { observe: 'response', params }).pipe(
+      map(response => {
+        paginatedResult.result = response.body;
+        if (response.headers.get('Pagination') !== null) {
+          paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+        }
+        return paginatedResult;
       })
     );
   }

@@ -46,7 +46,8 @@ namespace VirtualMatch.Business.Services
                     Id = user.Id,
                     Username = user.UserName,
                     Token = this._tokenService.Create(user),
-                    KnownAs = user.KnownAs
+                    KnownAs = user.KnownAs,
+                    Gender = user.Gender
                 };
             }
         }
@@ -74,7 +75,8 @@ namespace VirtualMatch.Business.Services
                     Username = user.UserName,
                     Token = this._tokenService.Create(user),
                     PhotoUrl = user.Photos.FirstOrDefault(user => user.IsMain)?.Url,
-                    KnownAs = user.KnownAs
+                    KnownAs = user.KnownAs,
+                    Gender = user.Gender
                 };
             }
 
