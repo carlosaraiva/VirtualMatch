@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using VirtualMatch.Api.ActionFilters;
 using VirtualMatch.Business.Interfaces;
 using VirtualMatch.Business.Services;
 using VirtualMatch.Data;
@@ -19,6 +20,7 @@ using VirtualMatch.Shared.Helpers;
 namespace VirtualMatch.Api.Controllers
 {
     [Authorize]
+    [ServiceFilter(typeof(LogUserActivity))]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase

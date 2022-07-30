@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using VirtualMatch.Api.ActionFilters;
 using VirtualMatch.Api.Middleware;
 using VirtualMatch.Shared.Helpers;
 
@@ -29,6 +30,8 @@ namespace VirtualMatch.Api
             {
                 options.UseSqlite(_config.GetConnectionString("DefaultConnection"));
             });*/
+
+            services.AddScoped<LogUserActivity>();
             Data.ServiceInjector.SetDataInjection(services, _config.GetConnectionString("DefaultConnection"));
             Business.ServiceInjector.SetBusinessInjection(services);
             services.Configure<CloudinarySettings>(_config.GetSection("CloudinarySettings"));

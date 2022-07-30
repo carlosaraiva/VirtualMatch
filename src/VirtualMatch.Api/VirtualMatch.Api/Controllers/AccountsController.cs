@@ -8,6 +8,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.Unicode;
 using System.Threading.Tasks;
+using VirtualMatch.Api.ActionFilters;
 using VirtualMatch.Business.Services;
 using VirtualMatch.Data;
 using VirtualMatch.Data.Repositories;
@@ -17,6 +18,7 @@ using VirtualMatch.Entities.DTO;
 
 namespace VirtualMatch.Api.Controllers
 {
+    [ServiceFilter(typeof(LogUserActivity))]
     [Route("api/[controller]")]
     [ApiController]
     public class AccountsController : ControllerBase
