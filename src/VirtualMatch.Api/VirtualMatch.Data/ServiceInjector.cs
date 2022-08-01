@@ -21,6 +21,7 @@ namespace VirtualMatch.Data
             });
 
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ILikesRepository, LikesRepository>();
         }
     }
 }
