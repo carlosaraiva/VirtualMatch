@@ -38,7 +38,7 @@ namespace VirtualMatch.Api.Controllers
         [HttpPost("{username}")]
         public async Task<ActionResult> AddLike(string username)
         {
-            var sourceUserId = User.FindFirst(ClaimTypes.Name)?.Value;
+            var sourceUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             var likedUser = await _userService.GetUsersByUsernameAsync(username);
             var sourceUser = await _likesService.GetUserWithLikes(Convert.ToInt32(sourceUserId));
@@ -68,7 +68,7 @@ namespace VirtualMatch.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<LikeDto>>> GetUserLikes(string predicate)
         {
-            var sourceUserId = User.FindFirst(ClaimTypes.Name)?.Value;
+            var sourceUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             return Ok(await _likesService.GetUserLikes(predicate, Convert.ToInt32(sourceUserId)));
         }

@@ -71,7 +71,8 @@ namespace VirtualMatch.Data.Repositories
         public async Task AddLike(UserLike userLike)
         {
             var sourceUser = await GetUserWithLikes(Convert.ToInt32(userLike.SourceUserId));
-            sourceUser.LikedByUsers.Add(userLike);
+
+            sourceUser.LikedUsers.Add(userLike);
 
             await _context.SaveChangesAsync();
         }
