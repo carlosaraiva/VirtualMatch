@@ -18,7 +18,8 @@ namespace VirtualMatch.Api.ActionFilters
 
             if (!resultContext.HttpContext.User.Identity.IsAuthenticated) return;
 
-            var username = resultContext.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            //var username = resultContext.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var username = resultContext.HttpContext.User.FindFirst(ClaimTypes.Name)?.Value;
             var repo = resultContext.HttpContext.RequestServices.GetService<IUserRepository>();
             var user = await repo.GetUserByUsernameAsync(username);
             user.LastActive = DateTime.Now;

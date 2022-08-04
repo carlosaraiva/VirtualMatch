@@ -67,5 +67,13 @@ namespace VirtualMatch.Data.Repositories
                 .Include(x => x.LikedUsers)
                 .FirstOrDefaultAsync(x => x.Id == userId);
         }
+
+        public async Task AddLike(UserLike userLike)
+        {
+            var sourceUser = await GetUserWithLikes(Convert.ToInt32(userLike.SourceUserId));
+            sourceUser.LikedByUsers.Add(userLike);
+
+            await _context.SaveChangesAsync();
+        }
     }
 }

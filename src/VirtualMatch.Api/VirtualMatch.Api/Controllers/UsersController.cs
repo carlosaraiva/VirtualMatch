@@ -37,7 +37,7 @@ namespace VirtualMatch.Api.Controllers
         [HttpGet()]
         public async Task<ActionResult<PagedList<MemberDto>>> GetUsers([FromQuery]UserParams userParams)
         {
-            userParams.CurrentUsername = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            userParams.CurrentUsername = User.FindFirst(ClaimTypes.Name)?.Value;
             var users = await _userService.GetMembersAsync(userParams);
 
             Response.AddPaginationHeader(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages);
@@ -57,7 +57,7 @@ namespace VirtualMatch.Api.Controllers
         [HttpPut]
         public async Task<ActionResult> UpdateUser(MemberUpdateDto memberUpdateDto)
         {
-            var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var username = User.FindFirst(ClaimTypes.Name)?.Value;
             memberUpdateDto.Username = username;
 
             if (await this._userService.UpdateMember(memberUpdateDto))
@@ -69,7 +69,7 @@ namespace VirtualMatch.Api.Controllers
         [HttpPost("add-photo")]
         public async Task<ActionResult<PhotoDto>> AddPhoto(IFormFile file)
         {
-            var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var username = User.FindFirst(ClaimTypes.Name)?.Value;
 
             var photo = await this._photoService.AddPhotoAsync(file, username);
 
@@ -82,7 +82,7 @@ namespace VirtualMatch.Api.Controllers
         [HttpPut("set-main-photo/{photoId}")]
         public async Task<ActionResult> SetMainPhoto([FromRoute]int photoId)
         {
-            var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var username = User.FindFirst(ClaimTypes.Name)?.Value;
 
             if (await _photoService.SetMainPhoto(username, photoId))
                 return NoContent();
@@ -93,7 +93,7 @@ namespace VirtualMatch.Api.Controllers
         [HttpDelete("photo/{photoId}")]
         public async Task<ActionResult> DeletePhoto(int photoId)
         {
-            var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var username = User.FindFirst(ClaimTypes.Name)?.Value;
             if (await this._photoService.DeletePhotoAsync(username, photoId))
                 return Ok();
 

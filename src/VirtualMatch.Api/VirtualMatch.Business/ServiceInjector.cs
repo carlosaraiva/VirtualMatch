@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using VirtualMatch.Business.Interfaces;
 using VirtualMatch.Business.Mapper;
 using VirtualMatch.Business.Services;
+using VirtualMatch.Business.Services.Interface;
 
 namespace VirtualMatch.Business
 {
@@ -19,6 +20,7 @@ namespace VirtualMatch.Business
             services.AddScoped<TokenService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IPhotoService, PhotoService>();
+            services.AddScoped<ILikesService, LikesService>();
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
         }
     }
