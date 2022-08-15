@@ -9,9 +9,9 @@
         <li class="nav-item">
         <a class="nav-link" routerLink="lists" routerLinkActive="active">Find Users</a>
         </li>
-        <li class="nav-item">
+        <!--<li class="nav-item">
         <a class="nav-link" routerLink="messages" routerLinkActive="active">Messages</a>
-        </li>
+        </li>-->
     </ul>
 
     <div class="dropdown" *ngIf="(accountService.loggedUser$ | async) as loggedUser" dropdown>
