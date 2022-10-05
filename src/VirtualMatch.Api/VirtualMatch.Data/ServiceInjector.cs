@@ -17,7 +17,7 @@ namespace VirtualMatch.Data
         {
             services.AddDbContext<DataContext>(options =>
             {
-                options.UseSqlServer(connection);
+                options.UseNpgsql(connection);
             });
 
             services.AddScoped<IUserRepository, UserRepository>();
