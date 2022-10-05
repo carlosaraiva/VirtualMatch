@@ -29,7 +29,7 @@ namespace VirtualMatch.Data
                     connStr = "Server=localhost; User Id=postgres; Password=123; Database=virtualmatch";
 
 
-                    connStr = "Server=ec2-107-23-76-12.compute-1.amazonaws.com;Port=5432;User Id=kzegiepnzondsv;Password=7a9aa200b263dcc81471deb34c81cb26133df6600aa521df514f757094dfb879;Database=de6q2g3fl6rql5;SSL=true;SSL Mode=Require;TrustServerCertificate=True";
+                    connStr = "Server=ec2-107-23-76-12.compute-1.amazonaws.com;Port=5432;User Id=kzegiepnzondsv;Password=7a9aa200b263dcc81471deb34c81cb26133df6600aa521df514f757094dfb879;Database=de6q2g3fl6rql5;SSL Mode=Require;TrustServerCertificate=True";
                 }
                 else
                 {
@@ -49,7 +49,7 @@ namespace VirtualMatch.Data
 
                     connStr = $"Server={pgHost};Port={pgPort};User Id={pgUser};Password={pgPass};Database={pgDb};SSL Mode=Require;TrustServerCertificate=True";*/
 
-                    connStr = "Server=ec2-107-23-76-12.compute-1.amazonaws.com;Port=5432;User Id=kzegiepnzondsv;Password=7a9aa200b263dcc81471deb34c81cb26133df6600aa521df514f757094dfb879;Database=de6q2g3fl6rql5;SSL=true;SSL Mode=Require;TrustServerCertificate=True";
+                    connStr = "Server=ec2-107-23-76-12.compute-1.amazonaws.com;Port=5432;User Id=kzegiepnzondsv;Password=7a9aa200b263dcc81471deb34c81cb26133df6600aa521df514f757094dfb879;Database=de6q2g3fl6rql5;SSL Mode=Require;TrustServerCertificate=True";
                 }
 
                 // Whether the connection string came from the local development configuration file
